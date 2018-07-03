@@ -1,10 +1,22 @@
-node_modules
+.quasar
 .DS_Store
-Thumbs.db
-*test.db
-*.log
-.cache
-/temp
-dist
-www/dist
-Frappe Accounting*
+.thumbs.db
+node_modules
+/dist
+/src-cordova/platforms
+/src-cordova/plugins
+/src-cordova/www
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# database files
+*.db

@@ -1,33 +1,24 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import coreRoutes from 'frappejs/ui/routes';
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-import SetupWizard from '../pages/SetupWizard';
-import Report from 'frappejs/ui/pages/Report';
-import reportViewConfig from '../../reports/view';
+import routes from './routes'
 
-Vue.use(Router);
+Vue.use(VueRouter)
 
-const routes = [].concat(coreRoutes, [
-  {
-    path: '/setup-wizard',
-    name: 'SetupWizard',
-    components: {
-      setup: SetupWizard
-    }
-  },
-  {
-    path: '/report/:reportName',
-    name: 'Report',
-    component: Report,
-    props: (route) => {
-      const { reportName } = route.params;
-      return {
-        reportName,
-        reportConfig: reportViewConfig[reportName] || null
-      };
-    }
-  }
-]);
+const Router = new VueRouter({
+  /*
+   * NOTE! Change Vue Router mode from quasar.conf.js -> build -> vueRouterMode
+   *
+   * When going with "history" mode, please also make sure "build.publicPath"
+   * is set to something other than an empty string.
+   * Example: '/' instead of ''
+   */
 
-export default new Router({ routes });
+  // Leave as is and change from quasar.conf.js instead!
+  mode: process.env.VUE_ROUTER_MODE,
+  base: process.env.VUE_ROUTER_BASE,
+  scrollBehavior: () => ({ y: 0 }),
+  routes
+})
+
+export default Router
