@@ -10,7 +10,8 @@
   },
   "scripts": {
     "test": "mocha tests",
-    "lint": "eslint --ext .js,.vue src"
+    "lint": "eslint --ext .js,.vue src",
+    "server": "node start.js"
   },
   "dependencies": {
     "bootstrap": "^4.1.1",
