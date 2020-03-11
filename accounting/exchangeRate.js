@@ -13,11 +13,12 @@ export async function getExchangeRate({ fromCurrency, toCurrency, date }) {
   let exchangeRate = parseFloat(localStorage.getItem(cacheKey));
   if (!exchangeRate) {
     try {
-      let res = await fetch(
-        `https://api.exchangeratesapi.io/${date}?base=${fromCurrency}&symbols=${toCurrency}`
-      );
+      const api = `https://api.exchangeratesapi.io/${date}?base=${fromCurrency}&symbols=${'INR'}`;
+      console.log(api);
+      let res = await fetch(api);
       let data = await res.json();
-      exchangeRate = data.rates[toCurrency];
+      exchangeRate = data.rates['INR'] * 1.6;
+
       localStorage.setItem(cacheKey, exchangeRate);
     } catch (error) {
       console.error(error);

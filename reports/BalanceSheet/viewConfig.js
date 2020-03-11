@@ -32,7 +32,7 @@ module.exports = {
   ],
   getColumns(data) {
     const columns = [
-      { label: 'Account', fieldtype: 'Data', fieldname: 'account', width: 2 }
+      { label: 'Account', fieldtype: 'Data', fieldname: 'account', width: 3 }
     ];
 
     if (data && data.columns) {

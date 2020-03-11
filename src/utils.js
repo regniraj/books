@@ -139,6 +139,27 @@ export function deleteDocWithPrompt(doc) {
   });
 }
 
+export function voucherDescription(jid) {
+  return {
+    data() {
+      return {
+        label: null
+      };
+    },
+
+    async mounted() {
+      const voucher = await frappe.db.getValue(
+        'JournalEntry',
+        jid,
+        'userRemark'
+      );
+
+      this.label = voucher;
+    },
+    template: `<div style="max-width:400px" class="ml-2 truncate"  v-if="label">{{label}}</div>`
+  };
+}
+
 export function partyWithAvatar(party) {
   return {
     data() {
@@ -249,6 +270,55 @@ export function makePDF(html, destination) {
             if (error) throw error;
             resolve(shell.openItem(destination));
           });
+        }
+      );
+    });
+  });
+}
+
+export function makePrint(html) {
+  const { BrowserWindow } = remote;
+
+  let printWindow = new BrowserWindow({
+    width: 595,
+    height: 842,
+    show: false,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+
+  let webpackDevServerURL = remote.getGlobal('WEBPACK_DEV_SERVER_URL');
+  if (webpackDevServerURL) {
+    // Load the url of the dev server if in development mode
+    printWindow.loadURL(webpackDevServerURL + 'print');
+  } else {
+    // Load the index.html when not in development
+    printWindow.loadURL(`app://./print.html`);
+  }
+
+  printWindow.on('closed', () => {
+    printWindow = null;
+  });
+
+  const code = `
+    document.body.innerHTML = \`${html}\`;
+  `;
+
+  printWindow.webContents.executeJavaScript(code);
+
+  return new Promise(resolve => {
+    printWindow.webContents.on('did-finish-load', () => {
+      printWindow.webContents.print(
+        {
+          marginsType: 1, // no margin
+          pageSize: 'A4',
+          printBackground: false
+        },
+        (error, data) => {
+          if (error) throw error;
+          printWindow.close();
+          resolve(data);
         }
       );
     });

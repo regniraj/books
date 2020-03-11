@@ -1,4 +1,4 @@
-import { partyWithAvatar } from '@/utils';
+import { voucherDescription } from '@/utils';
 
 let title = 'General Ledger';
 
@@ -79,53 +79,64 @@ const viewConfig = {
       {
         label: 'Account',
         fieldtype: 'Link',
-        fieldname: 'account'
+        fieldname: 'account',
+        width: 2
       },
       {
         label: 'Date',
         fieldtype: 'Date',
-        fieldname: 'date'
+        fieldname: 'date',
+        width: 1
       },
       {
         label: 'Debit',
         fieldtype: 'Currency',
         fieldname: 'debit',
-        width: 0.5
+        width: 1
       },
       {
         label: 'Credit',
         fieldtype: 'Currency',
         fieldname: 'credit',
-        width: 0.5
+        width: 1
       },
       {
         label: 'Balance',
         fieldtype: 'Currency',
         fieldname: 'balance',
-        width: 0.5
+        width: 1
       },
       {
         label: 'Reference Type',
         fieldtype: 'Data',
-        fieldname: 'referenceType'
+        fieldname: 'referenceType',
+        width: 1
       },
       {
         label: 'Reference Name',
         fieldtype: 'Data',
-        fieldname: 'referenceName'
+        fieldname: 'referenceName',
+        width: 1
       },
+      /*
       {
         label: 'Party',
         fieldtype: 'Link',
         fieldname: 'party',
+        width: 1,
         component(cellValue) {
           return partyWithAvatar(cellValue);
         }
       },
+    */
       {
         label: 'Description',
         fieldtype: 'Data',
-        fieldname: 'description'
+        fieldname: 'referenceName',
+        width: 5,
+        component(cellValue) {
+          return voucherDescription(cellValue);
+        }
       }
     ];
   }

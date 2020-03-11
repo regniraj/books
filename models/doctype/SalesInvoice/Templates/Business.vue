@@ -67,9 +67,9 @@
         :key="row.name"
       >
         <div class="w-4/12">{{ row.item }}</div>
-        <div class="w-2/12 text-right">{{ format(row, 'quantity') }}</div>
-        <div class="w-3/12 text-right">{{ format(row, 'rate') }}</div>
-        <div class="w-3/12 text-right">{{ format(row, 'amount') }}</div>
+        <div class="w-2/12 text-right">${{ format(row, 'quantity') }}</div>
+        <div class="w-3/12 text-right">${{ format(row, 'rate') }}</div>
+        <div class="w-3/12 text-right">${{ format(row, 'amount') }}</div>
       </div>
       <div class="mt-12">
         <div class="flex -mx-3">
@@ -77,7 +77,7 @@
             <div class="text-right">
               <div class="text-gray-800">{{ _('Subtotal') }}</div>
               <div class="text-xl mt-2">
-                {{ frappe.format(doc.netTotal, 'Currency') }}
+                $ {{ frappe.format(doc.netTotal) }}
               </div>
             </div>
             <div
@@ -89,7 +89,7 @@
                 {{ tax.account }} ({{ tax.rate }}%)
               </div>
               <div class="text-xl mt-2">
-                {{ frappe.format(tax.amount, 'Currency') }}
+                {{ $frappe.format(tax.amount) }}
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@
             <div>
               <div>{{ _('Grand Total') }}</div>
               <div class="text-2xl mt-2 font-semibold">
-                {{ frappe.format(doc.grandTotal, 'Currency') }}
+                ${{ frappe.format(doc.grandTotal) }}
               </div>
             </div>
           </div>

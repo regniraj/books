@@ -1,10 +1,12 @@
 const { ledgerLink } = require('../../../accounting/utils');
 const { DateTime } = require('luxon');
+const PrintView = require('./template/BasicJV.vue').default;
 
 module.exports = {
   label: 'Journal Entry',
   name: 'JournalEntry',
   doctype: 'DocType',
+  printTemplate: PrintView,
   isSubmittable: 1,
   settings: 'JournalEntrySettings',
   fields: [
@@ -59,6 +61,15 @@ module.exports = {
     }
   ],
   actions: [
+    {
+      label: 'Print',
+      condition: doc => doc.submitted,
+      action(doc, router) {
+        debugger;
+        router.push(`/print/${doc.doctype}/${doc.name}`);
+      }
+    },
+
     {
       label: 'Revert',
       condition: doc => doc.submitted,

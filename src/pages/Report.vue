@@ -3,6 +3,13 @@
     <PageHeader>
       <h1 slot="title" class="text-2xl font-bold">{{ report.title }}</h1>
       <template slot="actions">
+        <Button class="text-gray-900 text-xs ml-2" @click="makePDF">
+          {{ _('Save as PDF') }}
+        </Button>
+
+        <Button class="text-gray-900 text-xs ml-2" @click="makePrint">
+          {{ _('Print') }}
+        </Button>
         <SearchBar class="ml-2" />
       </template>
     </PageHeader>
@@ -21,7 +28,8 @@
         />
       </div>
     </div>
-    <div class="px-8 mt-4">
+    <div></div>
+    <div ref="printContainer" class="px-8 mt-4">
       <div>
         <div ref="header" class="overflow-hidden">
           <Row gap="2rem" :grid-template-columns="gridTemplateColumns">
@@ -85,6 +93,8 @@ import Row from '@/components/Row';
 import WithScroll from '@/components/WithScroll';
 import FormControl from '@/components/Controls/FormControl';
 import reportViewConfig from '@/../reports/view';
+import { makePDF, makePrint } from '@/utils';
+import { remote } from 'electron';
 
 export default {
   name: 'Report',
@@ -123,6 +133,36 @@ export default {
     await this.fetchReportData();
   },
   methods: {
+    async makePDF() {
+      let destination = await this.getSavePath();
+      let html = this.$refs.printContainer.innerHTML;
+      makePDF(html, destination);
+    },
+    getSavePath() {
+      return new Promise(resolve => {
+        remote.dialog.showSaveDialog(
+          remote.getCurrentWindow(),
+          {
+            title: this._('Select folder'),
+            defaultPath: `${this.name}.pdf`
+          },
+          filePath => {
+            if (filePath) {
+              if (!filePath.endsWith('.pdf')) {
+                filePath = filePath + '.pdf';
+              }
+              resolve(filePath);
+            }
+          }
+        );
+      });
+    },
+
+    async makePrint() {
+      let html = this.$refs.printContainer.innerHTML;
+      makePrint(html);
+    },
+
     onBodyScroll({ scrollLeft }) {
       this.$nextTick(() => {
         this.$refs.header.scrollLeft = scrollLeft;

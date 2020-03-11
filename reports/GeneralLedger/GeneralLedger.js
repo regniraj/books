@@ -24,7 +24,9 @@ class GeneralLedger {
         'debit',
         'credit'
       ],
-      filters: filters
+      filters: filters,
+      orderBy: 'date',
+      order: 'ASC'
     });
 
     return this.appendOpeningEntry(data);

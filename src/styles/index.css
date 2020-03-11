@@ -19,6 +19,8 @@
 
 @tailwind utilities;
 
+@tailwind screens;
+
 html {
   color: theme('colors.black');
 }

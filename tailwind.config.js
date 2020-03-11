@@ -1,5 +1,10 @@
 module.exports = {
   theme: {
+    screens: {
+      print: { raw: 'print' },
+      screen: { raw: 'screen' }
+      // => @media  print { ... }
+    },
     fontFamily: {
       sans: ['Inter', 'sans-serif']
     },

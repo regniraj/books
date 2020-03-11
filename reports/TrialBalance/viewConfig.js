@@ -39,9 +39,9 @@ module.exports = {
       }
     }
   ],
-  getColumns(data) {
+  getColumns() {
     const columns = [
-      { label: 'Account', fieldtype: 'Data', fieldname: 'account', width: 2 },
+      { label: 'Account', fieldtype: 'Data', fieldname: 'account', width: 3 },
       {
         label: 'Opening (Dr)',
         fieldtype: 'Currency',

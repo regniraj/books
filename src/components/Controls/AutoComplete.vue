@@ -11,6 +11,7 @@
       <div class="text-gray-600 text-sm mb-1" v-if="showLabel">
         {{ df.label }}
       </div>
+      <div class="-mb-4   invisible print:visible">{{ linkValue }}</div>
       <input
         ref="input"
         :class="inputClasses"

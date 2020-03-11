@@ -7,7 +7,7 @@ export default {
   methods: {
     format(row, fieldname) {
       let value = row.get(fieldname);
-      return frappe.format(value, row.meta.getField(fieldname));
+      return frappe.format(value);
     }
   },
   async mounted() {

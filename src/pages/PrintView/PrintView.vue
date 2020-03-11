@@ -13,6 +13,10 @@
           <Button class="text-gray-900 text-xs ml-2" @click="makePDF">
             {{ _('Save as PDF') }}
           </Button>
+
+          <Button class="text-gray-900 text-xs ml-2" @click="makePrint">
+            {{ _('Print') }}
+          </Button>
         </template>
       </PageHeader>
       <div
@@ -51,7 +55,7 @@ import DropdownWithAction from '@/components/DropdownWithAction';
 import Button from '@/components/Button';
 import BackLink from '@/components/BackLink';
 import TwoColumnForm from '@/components/TwoColumnForm';
-import { makePDF } from '@/utils';
+import { makePDF, makePrint } from '@/utils';
 import { remote } from 'electron';
 
 export default {
@@ -85,6 +89,11 @@ export default {
     }
   },
   methods: {
+    async makePrint() {
+      let html = this.$refs.printContainer.innerHTML;
+      makePrint(html);
+    },
+
     async makePDF() {
       let destination = await this.getSavePath();
       let html = this.$refs.printContainer.innerHTML;
