@@ -156,6 +156,36 @@ export default {
               description:
                 'Setup your tax templates for your sales or purchase transactions',
               action: () => this.$router.push('/list/Tax')
+            },
+            {
+              key: 'Fix Accounts',
+              label: _('Fix Accounts'),
+              icon: 'percentage',
+              description: 'Fix accounts',
+              action: () => {
+                (async () => {
+                  const vall = await frappe.db.getAll({
+                    doctype: 'JournalEntry',
+                    fields: ['*'],
+
+                    orderBy: 'creation'
+                  });
+                  let counter = 0;
+                  for (const voucher of vall) {
+                    const doc = await frappe.getDoc(
+                      'JournalEntry',
+                      voucher.name
+                    );
+
+                    await this.sleep(500);
+
+                    console.log('done...');
+                    await doc.submit();
+                  }
+                })().catch(err => {
+                  console.log(err);
+                });
+              }
             }
           ]
         },
@@ -236,6 +266,10 @@ export default {
     this.checkForCompletedTasks();
   },
   methods: {
+    async sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    },
+
     async checkForCompletedTasks() {
       let toUpdate = {};
       if (frappe.GetStarted.onboardingCompleted) {

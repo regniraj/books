@@ -132,8 +132,10 @@ module.exports = class LedgerPosting {
       let entryDoc = frappe.newDoc({
         doctype: 'AccountingLedgerEntry'
       });
+
       Object.assign(entryDoc, entry);
       await entryDoc.insert();
+      console.log('name', entryDoc.name);
     }
     for (let entry of this.accountEntries) {
       let entryDoc = await frappe.getDoc('Account', entry.name);

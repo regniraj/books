@@ -65,7 +65,6 @@ module.exports = {
       label: 'Print',
       condition: doc => doc.submitted,
       action(doc, router) {
-        debugger;
         router.push(`/print/${doc.doctype}/${doc.name}`);
       }
     },

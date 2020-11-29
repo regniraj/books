@@ -72,8 +72,8 @@
       <div class="flex py-1 text-lg" v-for="row in doc.items" :key="row.name">
         <div class="w-4/12">{{ row.item }}</div>
         <div class="w-2/12 text-right">{{ format(row, 'quantity') }}</div>
-        <div class="w-3/12 text-right">{{ format(row, 'rate') }}</div>
-        <div class="w-3/12 text-right">{{ format(row, 'amount') }}</div>
+        <div class="w-3/12 text-right">USD {{ format(row, 'rate') }}</div>
+        <div class="w-3/12 text-right">USD {{ format(row, 'amount') }}</div>
       </div>
     </div>
     <div class="flex px-12 py-10">
@@ -92,7 +92,7 @@
       <div class="w-1/2 text-lg">
         <div class="flex pl-2 justify-between py-1">
           <div>{{ _('Subtotal') }}</div>
-          <div>{{ frappe.format(doc.netTotal, 'Currency') }}</div>
+          <div>USD {{ frappe.format(doc.netTotal) }}</div>
         </div>
         <div
           class="flex pl-2 justify-between py-1"
@@ -100,14 +100,14 @@
           :key="tax.name"
         >
           <div>{{ tax.account }} ({{ tax.rate }}%)</div>
-          <div>{{ frappe.format(tax.amount, 'Currency') }}</div>
+          <div>USD {{ frappe.format(tax.amount) }}</div>
         </div>
         <div
           class="flex pl-2 justify-between py-1 font-semibold"
           :style="{ color: printSettings.color }"
         >
           <div>{{ _('Grand Total') }}</div>
-          <div>{{ frappe.format(doc.grandTotal, 'Currency') }}</div>
+          <div>USD {{ frappe.format(doc.grandTotal) }}</div>
         </div>
       </div>
     </div>
